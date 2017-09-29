@@ -2,7 +2,7 @@ package war;
 
 public class Card {
 
-	String rank;
+	private String rank;
 	private static final String[] RANKS = {
 			"ACE", "TWO", "THREE", "FOUR", "FIVE",
 			"SIX", "SEVEN", "EIGHT", "NINE", "JACK",
