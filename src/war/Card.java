@@ -2,11 +2,11 @@ package war;
 
 public class Card {
 
-	String rank;
-	private static final String[] RANKS = {
-			"Ace", "2", "3", "4", "5",
-			"6", "7", "8", "9", "Jack",
-			"Queen", "King"	};
+	char rank;
+	private static final char[] RANKS = {
+			'A', '2', '3', '4', '5',
+			'6', '7', '8', '9', 'J',
+			'Q', 'K'};
 	private char suit;
 	
 	public Card(int index, char suit) {
@@ -14,11 +14,11 @@ public class Card {
 		this.suit = suit;
 	}
 	
-	public String getRank() { return rank; }
+	public char getRank() { return rank; }
 	
 	public int getRankIndex() { 
 		for (int i = 0; i < 13; i++) {
-			if (rank.equals(RANKS[i]))
+			if (rank == RANKS[i])
 				return i;
 		}
 		
@@ -27,7 +27,7 @@ public class Card {
 	
 	public char getSuit() { return suit; }
 	
-	public void setRank(String rank) { this.rank = rank; }
+	public void setRank(char rank) { this.rank = rank; }
 	
 	public void setSuit(char suit) { this.suit = suit; }
 }
