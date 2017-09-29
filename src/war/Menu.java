@@ -13,12 +13,13 @@ public class Menu {
 		
 		System.out.println("                                WAR");
 		System.out.println("==================================================================");
-		System.out.println("Select a variation:");
+		System.out.println("Supported variations:");
 		System.out.println("1. 2-Player: Placing won cards on the bottom of the player's hand.");
 		System.out.println("2. 2-Player: Placing won cards in a seperate points pile.");
 		System.out.println("3. 3-Player: Placing won cards in a seperate points pile.");
 		
 		do {
+			System.out.print("\nSelect a variation (1-3): ");
 			variation = playerInput.nextInt();
 			playerInput.nextLine();
 		} while (variation > 3 || variation < 1);
@@ -32,10 +33,6 @@ public class Menu {
 			System.out.print("Player 2 Name: ");
 			player3Name = playerInput.nextLine();
 		}
-		
-		System.out.println("Player 1: " + player1Name);
-		System.out.println("Player 2: " + player2Name);
-		if (variation == 3) {System.out.println("Player 3: " + player3Name);}
 		
 		playerInput.close();
 	}
