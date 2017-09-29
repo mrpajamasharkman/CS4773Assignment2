@@ -3,10 +3,11 @@ package war;
 import java.util.Scanner;
 
 public class Menu {
+	
+	private static int variation;
 
 	public static void main(String[] args) {
 		Scanner playerInput = new Scanner(System.in);
-		int variation;
 		String player1Name;
 		String player2Name;
 		String player3Name = "";
@@ -36,5 +37,7 @@ public class Menu {
 		
 		playerInput.close();
 	}
+	
+	public int getVariation() { return variation; }
 
 }
