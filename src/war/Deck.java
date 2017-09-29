@@ -15,7 +15,7 @@ public class Deck {
 			System.err.print("Number of cards greater than maximum deck size");
 	}
 	
-	public void addCard(int rank, char suit) {
+	public void addCard(int rank, String suit) {
 		if (deck.size() < MAX_DECK_SIZE)
 			deck.add(new Card(rank, suit));
 		else
