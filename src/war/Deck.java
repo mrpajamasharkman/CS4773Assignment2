@@ -23,8 +23,8 @@ public class Deck {
 	}
 	
 	public Card drawCard() {
-		Random randomCard = new Random();
-		return deck.get(randomCard.nextInt(deck.size()));
+		Random randomCard = new Random();		
+		return deck.remove(randomCard.nextInt(deck.size()));
 	}
 	
 	public int getDeckSize() { return deck.size(); }
