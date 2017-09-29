@@ -1,12 +1,12 @@
 package war;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Deck {
 	
-	public static final int MAX_DECK_SIZE = 52;
-	
-	private ArrayList<Card> deck;
+	private static final int MAX_DECK_SIZE = 52;
+	protected ArrayList<Card> deck;
 	
 	public Deck (int deckSize) {
 		if (deckSize <= MAX_DECK_SIZE)
@@ -21,4 +21,11 @@ public class Deck {
 		else
 			System.err.print("Cannot add card; already at maximum deck size");
 	}
+	
+	public Card drawCard() {
+		Random randomCard = new Random();
+		return deck.get(randomCard.nextInt(deck.size()));
+	}
+	
+	public int getDeckSize() { return deck.size(); }
 }
