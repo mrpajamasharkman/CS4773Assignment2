@@ -16,13 +16,14 @@ public class Card {
 	
 	public char getRank() { return rank; }
 	
-	public int getRankIndex() { 
-		for (int i = 0; i < 13; i++) {
-			if (rank == RANKS[i])
-				return i;
+	public int getRankIndex() {
+		int index;
+		for (index = 0; index < 13; index++) {
+			if (rank == RANKS[index])
+				break;
 		}
 		
-		return -1;
+		return index;
 	}
 	
 	public char getSuit() { return suit; }
