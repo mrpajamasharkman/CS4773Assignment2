@@ -23,8 +23,10 @@ public class Deck {
 	}
 	
 	public Deck (int deckSize) {
-		if (deckSize == 0)
-			deck = new ArrayList<Card>();
+		//We don't need to know deck size here if we're filling it in Player. It's an ArrayList, not an array
+		//if (deckSize == 0)
+		//	deck = new ArrayList<Card>();
+		deck = new ArrayList<Card>();
 		//	MORE DECKBUILDING TO HAPPEN
 	}
 	
