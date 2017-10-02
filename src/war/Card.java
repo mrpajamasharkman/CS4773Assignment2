@@ -2,33 +2,19 @@ package war;
 
 public class Card {
 
-	private String rank;
-	private static final String[] RANKS = {
-			"ACE", "TWO", "THREE", "FOUR", "FIVE",
-			"SIX", "SEVEN", "EIGHT", "NINE", "JACK",
-			"QUEEN", "KING"};
-	private String suit;
+	private Rank rank;
+	private Suit suit;
 	
-	public Card(int index, String suit) {
-		rank = RANKS[index - 1];
+	public Card(Rank rank, Suit suit) {
+		this.rank = rank;
 		this.suit = suit;
 	}
 	
-	public String getRank() { return rank; }
+	public Rank getRank() { return rank; }
 	
-	public int getRankIndex() {
-		int index;
-		for (index = 0; index < 13; index++) {
-			if (rank == RANKS[index])
-				break;
-		}
-		
-		return index;
-	}
+	public Suit getSuit() { return suit; }
 	
-	public String getSuit() { return suit; }
+	public void setRank(Rank rank) { this.rank = rank; }
 	
-	public void setRank(String rank) { this.rank = rank; }
-	
-	public void setSuit(String suit) { this.suit = suit; }
+	public void setSuit(Suit suit) { this.suit = suit; }
 }
