@@ -8,8 +8,7 @@ public class Menu {
 	private static int variation;
 	private static Deck deck = new Deck();
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		//	Setting debug settings so we don't have to change default program stuff at all
 		boolean debug = false;
 		
@@ -19,12 +18,17 @@ public class Menu {
 		
 		System.out.println("                                WAR");
 		System.out.println("==================================================================");
-		System.out.println("Select a variation:");
+		System.out.println("Possible variations:");
 		System.out.println("1. 2-Player: Placing won cards on the bottom of the player's hand.");
 		System.out.println("2. 2-Player: Placing won cards in a seperate points pile.");
-		System.out.println("3. 3-Player: Placing won cards in a seperate points pile.");
+		System.out.println("3. 3-Player: Placing won cards in a seperate points pile.\n");
 		
 		do {
+			System.out.print("Select a variation (1-3): ");
+			while (!playerInput.hasNextInt()) {
+				System.out.print("Select a variation (1-3): ");
+				playerInput.next();
+			}
 			variation = playerInput.nextInt();
 			playerInput.nextLine();
 		} while (variation > 3 || variation < 1);
