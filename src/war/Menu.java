@@ -6,12 +6,16 @@ public class Menu {
 
 	private static Scanner playerInput = new Scanner(System.in);
 	private static int variation;
+	private static Deck deck = new Deck();
 	
 	public static void main(String[] args) {
 		
+		//	Setting debug settings so we don't have to change default program stuff at all
+		boolean debug = false;
+		
 		Player player1 = null;
 		Player player2 = null;
-		Player player3 = new Player ("", 17);
+		Player player3 = null;
 		
 		System.out.println("                                WAR");
 		System.out.println("==================================================================");
@@ -26,26 +30,23 @@ public class Menu {
 		} while (variation > 3 || variation < 1);
 		
 		System.out.print("Player 1 Name: ");
-		setUpPlayer(player1, getVariation());
+		setUpPlayer(player1);
 		System.out.print("Player 2 Name: ");
-		setUpPlayer(player2, getVariation());
+		setUpPlayer(player2);
 		
 		if (getVariation() == 3) {
 			System.out.print("Player 3 Name: ");
-			player3.setName(playerInput.nextLine());
+			setUpPlayer(player3);
 		}
 		
 		playerInput.close();
-		
-		//	GAME START!!!
-		Deck deck = new Deck();
 	}
 	
-	public static void setUpPlayer(Player player, int variation) {
+	public static void setUpPlayer(Player player) {
 		if (getVariation() != 3)
-			player = new Player(playerInput.nextLine(), 26);
+			player = new Player(playerInput.nextLine(), deck, getVariation());
 		else
-			player = new Player(playerInput.nextLine(), 17);
+			player = new Player(playerInput.nextLine(), deck, getVariation());
 	}
 
 	public static int getVariation() { return variation; }

@@ -23,11 +23,8 @@ public class Deck {
 	}
 	
 	public Deck (int deckSize) {
-		if (deckSize <= MAX_DECK_SIZE)
-			deck = new ArrayList<Card>(deckSize);
-		else
-			System.err.print("Number of cards greater than maximum deck size");
-		
+		if (deckSize == 0)
+			deck = new ArrayList<Card>();
 		//	MORE DECKBUILDING TO HAPPEN
 	}
 	

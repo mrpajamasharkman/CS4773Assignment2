@@ -5,10 +5,15 @@ public class Player extends Deck {
 	private String name;
 	private int score;
 
-	public Player(String name, int deckSize) {
-		super(deckSize);
+	public Player(String name, Deck mainDeck, int variation) {
+		super(0);
 		this.name = name;
 		this.score = 0;
+	}
+	
+	public void buildHand(Deck mainDeck, int handSize) {
+		for (int i = 0; i < handSize; i++)
+			deck.add(mainDeck.drawCard());
 	}
 	
 	public void adjustScore(int adjustment) { this.score += adjustment; }
