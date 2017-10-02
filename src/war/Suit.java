@@ -1,3 +1,3 @@
 package war;
 
-public enum Suit { CLUB, DIAMOND, HEART, SPADE; }
+public enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES; }
