@@ -8,16 +8,14 @@ public class Deck {
 	private static final int MAX_DECK_SIZE = 52;
 	protected ArrayList<Card> cards;
 	
-	//	Creates a standard 52 card deck; not Bicycle Playing Cards certified
-	public Deck() {
+	public Deck(int deckSize) {
 		cards = new ArrayList<Card>();
 		
-		CreateCards(cards);
-		
-		Collections.shuffle(cards);
+		if (deckSize == 52) {
+			CreateCards(cards);
+			Collections.shuffle(cards);
+		}
 	}
-	
-	public Deck (int deckSize) { cards = new ArrayList<Card>();	}
 	
 	private void CreateCards(ArrayList<Card> cards) {
 		for (int i = 0; i < 13; i++) {

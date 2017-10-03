@@ -6,12 +6,10 @@ public class Menu {
 
 	private static Scanner playerInput = new Scanner(System.in);
 	private static int variation;
-	private static Deck deck = new Deck();
+	private static Deck deck = new Deck(52);
+	private static boolean debug = false;
 	
 	public static void main(String[] args) {		
-		//	Setting debug settings so we don't have to change default program stuff at all
-		boolean debug = false;
-		
 		Player player1 = null;
 		Player player2 = null;
 		Player player3 = null;
@@ -45,6 +43,12 @@ public class Menu {
 		
 		playerInput.close();
 		
+		//enableDebug();
+		if (getDebug()) {
+			System.out.println("REMAINING CARDS:");
+			deck.displayDeck();
+		}
+		
 		//BEGIN TURN CYCLE
 	}
 	
@@ -56,4 +60,8 @@ public class Menu {
 	}
 
 	public static int getVariation() { return variation; }
+	
+	public static void enableDebug() { debug = true; }
+	
+	public static boolean getDebug() { return debug; }
 }
