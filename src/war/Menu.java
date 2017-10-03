@@ -44,6 +44,8 @@ public class Menu {
 		}
 		
 		playerInput.close();
+		
+		//BEGIN TURN CYCLE
 	}
 	
 	public static void setUpPlayer(Player player) {

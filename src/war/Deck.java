@@ -6,40 +6,42 @@ import java.util.Collections;
 public class Deck {
 	
 	private static final int MAX_DECK_SIZE = 52;
-	protected ArrayList<Card> deck;
+	protected ArrayList<Card> cards;
 	
 	//	Creates a standard 52 card deck; not Bicycle Playing Cards certified
 	public Deck() {
-		this.deck = new ArrayList<Card>();
+		cards = new ArrayList<Card>();
+		
+		CreateCards(cards);
+		
+		Collections.shuffle(cards);
+	}
+	
+	public Deck (int deckSize) { cards = new ArrayList<Card>();	}
+	
+	private void CreateCards(ArrayList<Card> cards) {
 		for (int i = 0; i < 13; i++) {
 			Rank rank = Rank.values()[i];
 			for (int j = 0; j < 4; j++) {
 				Card card = new Card(rank, Suit.values()[j]);
-				this.deck.add(card);
+				this.cards.add(card);
 			}
 		}
-		
-		Collections.shuffle(deck);
-	}
-	
-	public Deck (int deckSize) {
-		//We don't need to know deck size here if we're filling it in Player. It's an ArrayList, not an array
-		//if (deckSize == 0)
-		//	deck = new ArrayList<Card>();
-		deck = new ArrayList<Card>();
-		//	MORE DECKBUILDING TO HAPPEN
 	}
 	
 	public void addCard(Card card) {
-		if (deck.size() < MAX_DECK_SIZE)
-			deck.add(card);
+		if (cards.size() < MAX_DECK_SIZE)
+			cards.add(card);
 		else
 			System.err.print("Cannot add card; already at maximum deck size");
 	}
 	
-	public Card drawCard() {
-		return deck.remove(0);
-	}
+	public Card drawCard() { return cards.remove(0); }
 	
-	public int getDeckSize() { return deck.size(); }
+	public int getDeckSize() { return cards.size(); }
+	
+	public void displayDeck() {
+		for (Card c : cards)
+			System.out.println(c.getRank() + " of " + c.getSuit());
+	}
 }
