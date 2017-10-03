@@ -22,10 +22,8 @@ public class Deck {
 	private void CreateCards(ArrayList<Card> cards) {
 		for (int i = 0; i < 13; i++) {
 			Rank rank = Rank.values()[i];
-			for (int j = 0; j < 4; j++) {
-				Card card = new Card(rank, Suit.values()[j]);
-				this.cards.add(card);
-			}
+			for (int j = 0; j < 4; j++)
+				this.cards.add(new Card(rank, Suit.values()[j]));
 		}
 	}
 	
