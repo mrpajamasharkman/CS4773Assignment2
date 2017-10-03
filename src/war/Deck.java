@@ -38,6 +38,6 @@ public class Deck {
 	
 	public void displayDeck() {
 		for (Card c : cards)
-			System.out.println(c.getRank() + " of " + c.getSuit());
+			System.out.println(c.getRank() + "\tof\t" + c.getSuit());
 	}
 }

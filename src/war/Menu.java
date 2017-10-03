@@ -43,7 +43,7 @@ public class Menu {
 		
 		playerInput.close();
 		
-		//enableDebug();
+//		enableDebug();
 		if (getDebug()) {
 			System.out.println("REMAINING CARDS:");
 			deck.displayDeck();

@@ -18,7 +18,7 @@ public class Player extends Deck {
 		buildHand(mainDeck, handSize);
 		this.score = 0;
 		
-		//Menu.enableDebug();
+		Menu.enableDebug();
 		if (Menu.getDebug()) {
 			hand.displayDeck();
 		}
