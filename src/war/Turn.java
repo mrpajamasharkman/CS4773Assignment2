@@ -12,23 +12,16 @@ public class Turn {
 		winner = "";
 		this.players = players;
 		pointSystem = new PointSystem(players);
-		
-//		Menu.enableDebug();
-		if (Menu.getDebug()) {
-			for (Player player : players) {
-				System.out.println(player.getName());
-				player.getHand().displayDeck();
-				System.out.println(player.getScore());
-			}
-		}
 	}
 	
 	public String runTurn(){
 		boolean checkForWar;
-		Card winningCard = null;
-		Player winningPlayer = null;
-		ArrayList<Card> upCards = null;
+		Card winningCard;
+		Player winningPlayer;
+		ArrayList<Card> upCards;
 		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound()) {
+			winningCard = null;
+			winningPlayer = null;			
 			upCards = new ArrayList<Card>();
 			checkForWar = false;
 			for (Player player : players) {
@@ -36,20 +29,23 @@ public class Turn {
 				upCards.add(upCard);
 				System.out.println(
 						player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
-				if (winningCard == null)
+				if (winningCard == null) {
 					winningCard = upCard;
-				else if (upCard.getRank().getValue() > winningCard.getRank().getValue()) {
+					winningPlayer = player;
+				} else if (upCard.getRank().getValue() > winningCard.getRank().getValue()) {
 					winningCard = upCard;
 					winningPlayer = player;
 				} else if (upCard.getRank().getValue() == winningCard.getRank().getValue())
 					checkForWar = true;
 			}
 			
-			if (checkForWar)
+			if (checkForWar) {
 				initiateWar(players, upCards);
+				checkForWar = false;
+			}
 			else if (Menu.getVariation() == 1) {
 				for (Card card : upCards)
-					winningPlayer.addCard(card);
+					winningPlayer.getHand().addCard(card);
 			} else
 				pointSystem.adjustScore(winningPlayer, upCards.size());
 			
@@ -68,11 +64,13 @@ public class Turn {
 	}
 	
 	private void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
-		boolean checkForWar = false;
+		boolean checkForWar = true;
 		Card winningCard = null;
 		Player winningPlayer = null;
 		ArrayList<Card> downCards = new ArrayList<Card>();
-		while (!checkForWar) {
+		while (checkForWar) {
+			winningCard = null;
+			winningPlayer = null;
 			System.out.println("War!");
 			for (Player player : players) {
 				Card downCard = player.getHand().drawCard();
@@ -81,21 +79,24 @@ public class Turn {
 				upCards.add(upCard);
 				System.out.println(
 						player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
-				if (winningCard == null)
-					winningCard = upCard;
-				else if (upCard.getRank().getValue() > winningCard.getRank().getValue()) {
+				if (winningCard == null) {
 					winningCard = upCard;
 					winningPlayer = player;
-				} else if (upCard.getRank().getValue() == winningCard.getRank().getValue())
-					checkForWar = true;
+				} else if (upCard.getRank().getValue() > winningCard.getRank().getValue()) {
+					winningCard = upCard;
+					winningPlayer = player;
+					checkForWar = false;
+				} else if (upCard.getRank().getValue() < winningCard.getRank().getValue())
+					checkForWar = false;
+				System.out.println(checkForWar);
 			}
 		}
 		
 		if (Menu.getVariation() == 1) {
 			for (Card card : upCards)
-				winningPlayer.addCard(card);
+				winningPlayer.getHand().addCard(card);
 			for (Card card : downCards)
-				winningPlayer.addCard(card);
+				winningPlayer.getHand().addCard(card);
 		} else
 			pointSystem.adjustScore(winningPlayer, upCards.size() + downCards.size());
 		
@@ -105,7 +106,13 @@ public class Turn {
 	
 	private void displayScores(ArrayList<Player> players) {
 		System.out.print("Score is ");
-		for (Player player : players)
-			System.out.print(player.getName() + " " + player.getScore() + " ");
+		if (Menu.getVariation() == 1) {
+			for (Player player : players)
+				System.out.print(player.getName() + " " + player.getHand().getDeckSize() + " ");
+		} else {
+			for (Player player : players)
+				System.out.print(player.getName() + " " + player.getScore() + " ");
+		}
+		System.out.println("");
 	}
 }
