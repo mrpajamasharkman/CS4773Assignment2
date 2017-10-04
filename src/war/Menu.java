@@ -1,5 +1,6 @@
 package war;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -8,11 +9,11 @@ public class Menu {
 	private static int variation;
 	private static Deck deck = new Deck(52);
 	private static boolean debug = false;
+	private static Turn turn;
 	
-	public static void main(String[] args) {		
-		Player player1 = null;
-		Player player2 = null;
-		Player player3 = null;
+	public static void main(String[] args) {
+		ArrayList<Player> players = new ArrayList<Player>();
+		String winner = "";
 		
 		System.out.println("                                WAR");
 		System.out.println("==================================================================");
@@ -32,13 +33,14 @@ public class Menu {
 		} while (variation > 3 || variation < 1);
 		
 		System.out.print("Player 1 Name: ");
-		setUpPlayer(player1);
+		//setUpPlayer(player1);
+		players.add(new Player(playerInput.nextLine(), deck, getVariation()));
 		System.out.print("Player 2 Name: ");
-		setUpPlayer(player2);
+		players.add(new Player(playerInput.nextLine(), deck, getVariation()));
 		
 		if (getVariation() == 3) {
 			System.out.print("Player 3 Name: ");
-			setUpPlayer(player3);
+			players.add(new Player(playerInput.nextLine(), deck, getVariation()));
 		}
 		
 		playerInput.close();
@@ -49,14 +51,9 @@ public class Menu {
 			deck.displayDeck();
 		}
 		
-		//BEGIN TURN CYCLE
-	}
-	
-	public static void setUpPlayer(Player player) {
-		if (getVariation() != 3)
-			player = new Player(playerInput.nextLine(), deck, getVariation());
-		else
-			player = new Player(playerInput.nextLine(), deck, getVariation());
+		turn = new Turn(players);
+		winner = turn.runTurn();
+		System.out.println(winner);
 	}
 
 	public static int getVariation() { return variation; }

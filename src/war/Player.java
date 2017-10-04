@@ -18,7 +18,7 @@ public class Player extends Deck {
 		buildHand(mainDeck, handSize);
 		this.score = 0;
 		
-		Menu.enableDebug();
+//		Menu.enableDebug();
 		if (Menu.getDebug()) {
 			hand.displayDeck();
 		}
@@ -29,11 +29,11 @@ public class Player extends Deck {
 			hand.addCard(mainDeck.drawCard());
 	}
 	
-	public void adjustScore(int adjustment) { score += adjustment; }
-	
 	public String getName() { return name; }
 	
 	public int getScore() { return score; }
+	
+	public Deck getHand() { return hand; }
 	
 	public void setName(String name) { this.name = name; }
 	
