@@ -21,15 +21,7 @@ public class PointSystem {
 		}
 	}
 	
-	private void determineGameEnd(Player player) {
-		//Menu.enableDebug();
-		if (Menu.getDebug()) {
-				System.out.println(player.getName());
-				player.getHand().displayDeck();
-				System.out.println(player.getScore());
-				System.out.println(player.getHand().getDeckSize());
-		}
-		
+	private void determineGameEnd(Player player) {		
 		if (player.getHand().getDeckSize() == 0) {
 			if (Menu.getVariation() == 1)
 				setFullHandWinner();

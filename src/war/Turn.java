@@ -7,8 +7,11 @@ public class Turn {
 	private String winner;
 	private PointSystem pointSystem;
 	private ArrayList<Player> players;
+	private int turnNumber;
+	private static final int MAX_TURN_NUMBER = 4000;
 	
 	public Turn(ArrayList<Player> players) {
+		turnNumber = 1;
 		winner = "";
 		this.players = players;
 		pointSystem = new PointSystem(players);
@@ -19,7 +22,7 @@ public class Turn {
 		Card winningCard;
 		Player winningPlayer;
 		ArrayList<Card> upCards;
-		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound()) {
+		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() && turnNumber < MAX_TURN_NUMBER) {
 			winningCard = null;
 			winningPlayer = null;			
 			upCards = new ArrayList<Card>();
@@ -53,12 +56,15 @@ public class Turn {
 			displayScores(players);
 			
 			pointSystem.checkForWinner();
+			turnNumber++;
 		}
 		
 		if (pointSystem.getWinnerFound())
 			winner = pointSystem.getWinner().getName() + " wins!";
 		else if (pointSystem.getTieFound())
 			winner = "Tie!";
+		else if (turnNumber >= MAX_TURN_NUMBER)
+			winner = "Maximum turn reached: Tie!";
 		
 		return winner;
 	}
@@ -88,7 +94,6 @@ public class Turn {
 					checkForWar = false;
 				} else if (upCard.getRank().getValue() < winningCard.getRank().getValue())
 					checkForWar = false;
-				System.out.println(checkForWar);
 			}
 		}
 		
