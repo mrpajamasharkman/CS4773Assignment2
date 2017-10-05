@@ -16,7 +16,7 @@ public class Player extends Deck {
 			handSize = 26;
 		hand = new Deck(handSize);
 		buildHand(mainDeck, handSize);
-		this.score = 0;
+		score = 0;
 	}
 	
 	public void buildHand(Deck mainDeck, int handSize) {

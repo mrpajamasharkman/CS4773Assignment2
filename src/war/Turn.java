@@ -50,6 +50,8 @@ public class Turn {
 			} else if (Menu.getVariation() == 1) {
 				for (Card card : upCards)
 					winningPlayer.getHand().addCard(card);
+				for (Player player : players)
+					player.setScore(player.getHand().getDeckSize());
 				System.out.println(winningPlayer.getName() + " wins the round");
 				displayScores(players);
 			} else {
