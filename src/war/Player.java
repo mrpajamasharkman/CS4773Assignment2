@@ -6,6 +6,8 @@ public class Player extends Deck {
 	private int handSize;
 	private Deck hand;
 	private int score;
+	
+	public Player() {}
 
 	public Player(String name, Deck mainDeck, int variation) {
 		super(0);
