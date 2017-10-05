@@ -16,13 +16,7 @@ public class PointSystem {
 	}
 	
 	public void checkForWinner() {
-		for (Player player : players){
-			determineGameEnd(player);
-		}
-	}
-	
-	private void determineGameEnd(Player player) {		
-		if (player.getHand().getDeckSize() == 0) {
+		if (!checkForSufficientCards(1)) {
 			if (Menu.getVariation() == 1)
 				setFullHandWinner();
 			else
@@ -61,6 +55,26 @@ public class PointSystem {
 		}
 		
 		return highestScore;
+	}
+	
+	public boolean checkForSufficientCards(int sufficientCards) {
+		for (Player player : players) {
+			if (player.getHand().getDeckSize() < sufficientCards)
+				return false;
+		}
+		return true;
+	}
+	
+	public void setCurrentWinner() {
+		int highestScore = -1;
+		for (Player player : players)
+			highestScore = getHighestScore(player, highestScore);
+		for (Player player : players) {
+			if (player.getScore() == highestScore && player != getWinner())
+				setTieFound(true);
+		}
+		if (!getTieFound())
+			setWinnerFound(true);
 	}
 	
 	public Player getWinner() { return winner; }
