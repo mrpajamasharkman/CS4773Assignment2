@@ -6,6 +6,8 @@ public class Player extends Deck {
 	private int handSize;
 	private Deck hand;
 	private int score;
+	
+	public Player() {}
 
 	public Player(String name, Deck mainDeck, int variation) {
 		super(0);
@@ -33,4 +35,6 @@ public class Player extends Deck {
 	public void setName(String name) { this.name = name; }
 	
 	public void setScore(int score) { this.score = score; }
+	
+	public void setHand(Deck hand) { this.hand = hand; }
 }

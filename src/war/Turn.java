@@ -7,6 +7,7 @@ public class Turn {
 	private String winner;
 	private PointSystem pointSystem;
 	private ArrayList<Player> players;
+	private GameOutput gameOutput = new GameOutput();
 	private int turnNumber;
 	private static final int MAX_TURN_NUMBER = 4000;
 	
@@ -31,7 +32,7 @@ public class Turn {
 			for (Player player : players) {
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
-				System.out.println(
+				gameOutput.printEvent(
 						player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
 				if (winningCard == null) {
 					winningCard = upCard;
@@ -52,16 +53,16 @@ public class Turn {
 					winningPlayer.getHand().addCard(card);
 				for (Player player : players)
 					player.setScore(player.getHand().getDeckSize());
-				System.out.println(winningPlayer.getName() + " wins the round!\n*************");
-				displayScores(players);
+				gameOutput.printEvent(winningPlayer.getName() + " wins the round!\n*************");
+				gameOutput.displayScores(players);
 			} else {
 				if (checkForWar && !pointSystem.checkForSufficientCards(2))
-					System.out.println("Cards are discarded due to war on the final round.");
+					gameOutput.printEvent("Cards are discarded due to war on the final round.");
 				else {
 					pointSystem.adjustScore(winningPlayer, upCards.size());
-					System.out.println(winningPlayer.getName() + " wins the round!\n*************");
+					gameOutput.printEvent(winningPlayer.getName() + " wins the round!\n*************");
 				}
-				displayScores(players);
+				gameOutput.displayScores(players);
 			}
 			
 			pointSystem.checkForWinner();
@@ -87,13 +88,13 @@ public class Turn {
 			winningCard = null;
 			winningPlayer = null;
 			continueWar = true;
-			System.out.println("War!");
+			gameOutput.printEvent("War!");
 			for (Player player : players) {
 				Card downCard = player.getHand().drawCard();
 				downCards.add(downCard);
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
-				System.out.println(
+				gameOutput.printEvent(
 						player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
 				if (winningCard == null) {
 					winningCard = upCard;
@@ -112,25 +113,13 @@ public class Turn {
 				winningPlayer.getHand().addCard(card);
 			for (Card card : downCards)
 				winningPlayer.getHand().addCard(card);
-			System.out.println(winningPlayer.getName() + " wins the round!\n*************");
-			displayScores(players);
+			gameOutput.printEvent(winningPlayer.getName() + " wins the round!\n*************");
+			gameOutput.displayScores(players);
 		} else {
 			pointSystem.adjustScore(winningPlayer, upCards.size());
 			pointSystem.adjustScore(winningPlayer, downCards.size());
-			System.out.println(winningPlayer.getName() + " wins the round!\n*************");
-			displayScores(players);
+			gameOutput.printEvent(winningPlayer.getName() + " wins the round!\n*************");
+			gameOutput.displayScores(players);
 		}
-	}
-	
-	private void displayScores(ArrayList<Player> players) {
-		System.out.print("Score is: ");
-		if (Menu.getVariation() == 1) {
-			for (Player player : players)
-				System.out.print(player.getName() + " = " + player.getHand().getDeckSize() + " ");
-		} else {
-			for (Player player : players)
-				System.out.print(" " + player.getName() + " = " + player.getScore() + " ");
-		}
-		System.out.println("\n");
 	}
 }
