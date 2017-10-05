@@ -68,14 +68,12 @@ public class Turn {
 			turnNumber++;
 		}
 		
-		 if (pointSystem.getTieFound())
-			 winner = "Tie!";
-		 else if (pointSystem.getWinnerFound())
-			 winner = pointSystem.getWinner().getName() + " wins!";
-		 else if (turnNumber >= MAX_TURN_NUMBER) {
-			 pointSystem.setCurrentWinner();
-			 winner = "Maximum turns reached, " + pointSystem.getWinner().getName() + " wins by score!";
-		 }
+		if (turnNumber >= MAX_TURN_NUMBER)
+			pointSystem.setCurrentWinner();
+		if (pointSystem.getTieFound())
+			winner = "Tie!";
+		else if (pointSystem.getWinnerFound())
+			winner = pointSystem.getWinner().getName() + " wins!";
 		
 		return winner;
 	}

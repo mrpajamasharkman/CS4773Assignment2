@@ -20,7 +20,7 @@ public class PointSystem {
 			if (Menu.getVariation() == 1)
 				setFullHandWinner();
 			else
-				setPointPileWinner();
+				setCurrentWinner();
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class PointSystem {
 		}
 	}
 	
-	private void setPointPileWinner() {
+	public void setCurrentWinner() {
 		int highestScore = -1;
 		for (Player player : players)
 			highestScore = getHighestScore(player, highestScore);
@@ -63,19 +63,6 @@ public class PointSystem {
 				return false;
 		}
 		return true;
-	}
-	
-	public void setCurrentWinner() {
-		int highestScore = -1;
-		for (Player player : players){
-			highestScore = getHighestScore(player, highestScore);
-		}
-		for (Player player : players) {
-			if (player.getScore() == highestScore && player != getWinner())
-				setTieFound(true);
-		}
-		if (!getTieFound())
-			setWinnerFound(true);
 	}
 	
 	public Player getWinner() { return winner; }
