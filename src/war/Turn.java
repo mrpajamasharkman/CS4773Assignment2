@@ -52,14 +52,14 @@ public class Turn {
 					winningPlayer.getHand().addCard(card);
 				for (Player player : players)
 					player.setScore(player.getHand().getDeckSize());
-				System.out.println(winningPlayer.getName() + " wins the round");
+				System.out.println(winningPlayer.getName() + " wins the round!\n*************");
 				displayScores(players);
 			} else {
 				if (checkForWar && !pointSystem.checkForSufficientCards(2))
 					System.out.println("Cards are discarded due to war on the final round.");
 				else {
 					pointSystem.adjustScore(winningPlayer, upCards.size());
-					System.out.println(winningPlayer.getName() + " wins the round");
+					System.out.println(winningPlayer.getName() + " wins the round!\n*************");
 				}
 				displayScores(players);
 			}
@@ -73,7 +73,7 @@ public class Turn {
 		if (pointSystem.getTieFound())
 			winner = "Tie!";
 		else if (pointSystem.getWinnerFound())
-			winner = pointSystem.getWinner().getName() + " wins!";
+			winner = ">  "+ pointSystem.getWinner().getName() + " wins!";
 		
 		return winner;
 	}
@@ -112,24 +112,24 @@ public class Turn {
 				winningPlayer.getHand().addCard(card);
 			for (Card card : downCards)
 				winningPlayer.getHand().addCard(card);
-			System.out.println(winningPlayer.getName() + " wins the round");
+			System.out.println(winningPlayer.getName() + " wins the round!\n*************");
 			displayScores(players);
 		} else {
 			pointSystem.adjustScore(winningPlayer, upCards.size());
 			pointSystem.adjustScore(winningPlayer, downCards.size());
-			System.out.println(winningPlayer.getName() + " wins the round");
+			System.out.println(winningPlayer.getName() + " wins the round!\n*************");
 			displayScores(players);
 		}
 	}
 	
 	private void displayScores(ArrayList<Player> players) {
-		System.out.print("Score is ");
+		System.out.print("Score is: ");
 		if (Menu.getVariation() == 1) {
 			for (Player player : players)
-				System.out.print(player.getName() + " " + player.getHand().getDeckSize() + " ");
+				System.out.print(player.getName() + " = " + player.getHand().getDeckSize() + " ");
 		} else {
 			for (Player player : players)
-				System.out.print(player.getName() + " " + player.getScore() + " ");
+				System.out.print(" " + player.getName() + " = " + player.getScore() + " ");
 		}
 		System.out.println("\n");
 	}
