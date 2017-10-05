@@ -17,11 +17,6 @@ public class Player extends Deck {
 		hand = new Deck(handSize);
 		buildHand(mainDeck, handSize);
 		this.score = 0;
-		
-//		Menu.enableDebug();
-		if (Menu.getDebug()) {
-			hand.displayDeck();
-		}
 	}
 	
 	public void buildHand(Deck mainDeck, int handSize) {

@@ -32,24 +32,12 @@ public class Menu {
 			playerInput.nextLine();
 		} while (variation > 3 || variation < 1);
 		
-		System.out.print("Player 1 Name: ");
-		//setUpPlayer(player1);
-		players.add(new Player(playerInput.nextLine(), deck, getVariation()));
-		System.out.print("Player 2 Name: ");
-		players.add(new Player(playerInput.nextLine(), deck, getVariation()));
-		
-		if (getVariation() == 3) {
-			System.out.print("Player 3 Name: ");
-			players.add(new Player(playerInput.nextLine(), deck, getVariation()));
-		}
+		players.add(new Player("Player1", deck, getVariation()));
+		players.add(new Player("Player2", deck, getVariation()));
+		if (getVariation() == 3)
+			players.add(new Player("Player3", deck, getVariation()));
 		
 		playerInput.close();
-		
-//		enableDebug();
-		if (getDebug()) {
-			System.out.println("REMAINING CARDS:");
-			deck.displayDeck();
-		}
 		
 		turn = new Turn(players);
 		winner = turn.runTurn();

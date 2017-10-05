@@ -19,10 +19,12 @@ public class Turn {
 	
 	public String runTurn(){
 		boolean checkForWar;
+		boolean sufficientCards = checkForSufficientCards(players);
 		Card winningCard;
 		Player winningPlayer;
 		ArrayList<Card> upCards;
-		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() && turnNumber < MAX_TURN_NUMBER) {
+		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() 
+				&& turnNumber < MAX_TURN_NUMBER && sufficientCards) {
 			winningCard = null;
 			winningPlayer = null;			
 			upCards = new ArrayList<Card>();
@@ -40,30 +42,33 @@ public class Turn {
 					winningPlayer = player;
 				} else if (upCard.getRank().getValue() == winningCard.getRank().getValue())
 					checkForWar = true;
+				sufficientCards = checkForSufficientCards(players);
 			}
 			
-			if (checkForWar) {
+			if (checkForWar && sufficientCards) {
 				initiateWar(players, upCards);
 				checkForWar = false;
 			}
 			else if (Menu.getVariation() == 1) {
 				for (Card card : upCards)
 					winningPlayer.getHand().addCard(card);
-			} else
+				System.out.println(winningPlayer.getName() + " wins the round");
+				displayScores(players);
+			} else {
 				pointSystem.adjustScore(winningPlayer, upCards.size());
-			
-			System.out.println(winningPlayer.getName() + " wins the round");
-			displayScores(players);
+				System.out.println(winningPlayer.getName() + " wins the round");
+				displayScores(players);
+			}
 			
 			pointSystem.checkForWinner();
 			turnNumber++;
 		}
 		
-		if (pointSystem.getWinnerFound())
+		 if (pointSystem.getTieFound())
+				winner = "Tie!";
+		 else if (pointSystem.getWinnerFound())
 			winner = pointSystem.getWinner().getName() + " wins!";
-		else if (pointSystem.getTieFound())
-			winner = "Tie!";
-		else if (turnNumber >= MAX_TURN_NUMBER)
+		 else if (turnNumber >= MAX_TURN_NUMBER)
 			winner = "Maximum turn reached: Tie!";
 		
 		return winner;
@@ -71,10 +76,11 @@ public class Turn {
 	
 	private void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
 		boolean checkForWar = true;
+		boolean sufficientCards = checkForSufficientCards(players);
 		Card winningCard = null;
 		Player winningPlayer = null;
 		ArrayList<Card> downCards = new ArrayList<Card>();
-		while (checkForWar) {
+		while (checkForWar && sufficientCards) {
 			winningCard = null;
 			winningPlayer = null;
 			System.out.println("War!");
@@ -83,6 +89,7 @@ public class Turn {
 				downCards.add(downCard);
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
+				sufficientCards = checkForSufficientCards(players);
 				System.out.println(
 						player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
 				if (winningCard == null) {
@@ -98,12 +105,20 @@ public class Turn {
 		}
 		
 		if (Menu.getVariation() == 1) {
-			for (Card card : upCards)
-				winningPlayer.getHand().addCard(card);
-			for (Card card : downCards)
-				winningPlayer.getHand().addCard(card);
-		} else
-			pointSystem.adjustScore(winningPlayer, upCards.size() + downCards.size());
+			if (!upCards.isEmpty()) {
+				for (Card card : upCards)
+					winningPlayer.getHand().addCard(card);
+			}
+			if (!downCards.isEmpty()) {
+				for (Card card : downCards)
+					winningPlayer.getHand().addCard(card);
+			}
+		} else {
+			if (!upCards.isEmpty())
+				pointSystem.adjustScore(winningPlayer, upCards.size());
+			if (!downCards.isEmpty())
+				pointSystem.adjustScore(winningPlayer, downCards.size());
+		}
 		
 		System.out.println(winningPlayer.getName() + " wins the round");
 		displayScores(players);
@@ -118,6 +133,14 @@ public class Turn {
 			for (Player player : players)
 				System.out.print(player.getName() + " " + player.getScore() + " ");
 		}
-		System.out.println("");
+		System.out.println("\n");
+	}
+	
+	private boolean checkForSufficientCards(ArrayList<Player> players) {
+		for (Player player : players) {
+			if (player.getHand().getDeckSize() < 2)
+				return false;
+		}
+		return true;
 	}
 }

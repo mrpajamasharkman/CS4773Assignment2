@@ -44,9 +44,8 @@ public class PointSystem {
 	
 	private void setPointPileWinner() {
 		int highestScore = -1;
-		for (Player player : players) {
-			getHighestScore(player, highestScore);
-		}
+		for (Player player : players)
+			highestScore = getHighestScore(player, highestScore);
 		for (Player player : players) {
 			if (player.getScore() == highestScore && player != getWinner())
 				setTieFound(true);
@@ -55,11 +54,13 @@ public class PointSystem {
 			setWinnerFound(true);
 	}
 	
-	private void getHighestScore(Player player, int highestScore) {
+	private int getHighestScore(Player player, int highestScore) {
 		if (player.getScore() > highestScore) {
 			highestScore = player.getScore();
 			setWinner(player);
 		}
+		
+		return highestScore;
 	}
 	
 	public Player getWinner() { return winner; }
