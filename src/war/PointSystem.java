@@ -17,9 +17,9 @@ public class PointSystem {
 	
 	public void checkForWinner() {
 		if (!checkForSufficientCards(1)) {
-			if (Menu.getVariation() == 1)
+			if (Menu.getVariation() == 1) {
 				setFullHandWinner();
-			else
+			} else
 				setCurrentWinner();
 		}
 	}

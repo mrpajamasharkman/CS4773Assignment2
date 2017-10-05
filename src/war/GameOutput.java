@@ -33,10 +33,10 @@ public class GameOutput {
 		System.out.print("Score is ");
 		if (Menu.getVariation() == 1) {
 			for (Player player : players)
-				System.out.print(player.getName() + " " + player.getHand().getDeckSize() + " ");
+				System.out.print(player.getName() + " = " + player.getHand().getDeckSize() + " ");
 		} else {
 			for (Player player : players)
-				System.out.print(player.getName() + " " + player.getScore() + " ");
+				System.out.print(player.getName() + " = " + player.getScore() + " ");
 		}
 		System.out.println("\n");
 	}
