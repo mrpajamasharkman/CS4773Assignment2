@@ -55,8 +55,12 @@ public class Turn {
 				System.out.println(winningPlayer.getName() + " wins the round");
 				displayScores(players);
 			} else {
-				pointSystem.adjustScore(winningPlayer, upCards.size());
-				System.out.println(winningPlayer.getName() + " wins the round");
+				if (checkForWar && !pointSystem.checkForSufficientCards(2))
+					System.out.println("Cards are discarded due to war on the final round.");
+				else {
+					pointSystem.adjustScore(winningPlayer, upCards.size());
+					System.out.println(winningPlayer.getName() + " wins the round");
+				}
 				displayScores(players);
 			}
 			
