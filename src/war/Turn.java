@@ -20,6 +20,7 @@ public class Turn {
 	
 	public String runTurn(){
 		boolean checkForWar;
+		boolean checkForEndGame = false;
 		Card winningCard;
 		Player winningPlayer;
 		ArrayList<Card> upCards;
@@ -46,7 +47,7 @@ public class Turn {
 			}
 			
 			if (checkForWar && pointSystem.checkForSufficientCards(2)) {
-				initiateWar(players, upCards);
+				checkForEndGame = initiateWar(players, upCards);
 				checkForWar = false;
 			} else if (Menu.getVariation() == 1) {
 				if (checkForWar && !pointSystem.checkForSufficientCards(2))
@@ -61,8 +62,10 @@ public class Turn {
 				}
 			} else {
 				System.out.println(checkForWar + " " + pointSystem.checkForSufficientCards(2));
-				if (checkForWar && !pointSystem.checkForSufficientCards(2))
+				if (checkForWar && !pointSystem.checkForSufficientCards(2)) {
 					gameOutput.printEvent("Cards are discarded due to war on the final round.");
+					checkForEndGame = true;
+				}
 				else {
 					pointSystem.adjustScore(winningPlayer, upCards.size());
 					gameOutput.printEvent(winningPlayer.getName() + " wins the round!\n*************");
@@ -71,6 +74,8 @@ public class Turn {
 			}
 			
 			pointSystem.checkForWinner();
+			if (checkForEndGame)
+				break;
 			turnNumber++;
 		}
 		
@@ -84,7 +89,7 @@ public class Turn {
 		return winner;
 	}
 	
-	private void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
+	private boolean initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
 		boolean checkForWar = true;
 		Card winningCard = null;
 		Player winningPlayer = null;
@@ -126,8 +131,10 @@ public class Turn {
 			}
 		} else {
 			System.out.println(checkForWar + " " + pointSystem.checkForSufficientCards(2));
-			if (checkForWar && !pointSystem.checkForSufficientCards(2))
+			if (checkForWar && !pointSystem.checkForSufficientCards(2)) {
 				gameOutput.printEvent("Cards are discarded due to war on the final round.");
+				return true;
+			}
 			else {
 				pointSystem.adjustScore(winningPlayer, upCards.size());
 				pointSystem.adjustScore(winningPlayer, downCards.size());
@@ -135,5 +142,7 @@ public class Turn {
 				gameOutput.displayScores(players);
 			}
 		}
+		
+		return false;
 	}
 }
