@@ -1,25 +1,25 @@
 package war;
 
-public class Winner extends Player {
+public class Winner{
 
+	private Player winningPlayer;
 	private Card winningCard;
 
 	public Winner() {
-		setWinner(null, null);
+		setWinner(null);
 		setWinningCard(null);
 	}
 	
 	public Card getWinningCard() { return winningCard; }
 	
-	public void setWinningCard(Card winningCard) { this.winningCard = winningCard; }
+	public void setWinningCard(Card card) { winningCard = card; }
 	
-	public void setWinner(String name, Deck mainDeck) {
-		setName(name);
-		setHand(mainDeck);
-	}
+	public Player getWinner() { return winningPlayer;}
+	
+	public void setWinner(Player player) { winningPlayer = player; }
 	
 	public void reset() { 
-		setWinner(null, null);
+		setWinner(null);
 		setWinningCard(null);
 	}
 }
