@@ -1,5 +1,14 @@
 package war;
 
+/**
+ * Extends Deck, and adds four members (String name, int handSize, Deck hand, int Score) and aside from getters and setters
+ * adds one new method (buildHand).
+ * 
+ * @author Lucas Tiedeman
+ * @author Sean Woerner
+ * @author Christian Andrada
+ */
+
 public class Player extends Deck {
 	
 	private String name;
@@ -9,6 +18,11 @@ public class Player extends Deck {
 	
 	public Player() {}
 
+	/**
+	 * @param name		The player's name
+	 * @param mainDeck	The player's deck
+	 * @param variation	The variation of War being played
+	 */
 	public Player(String name, Deck mainDeck, int variation) {
 		super(0);
 		this.name = name;
@@ -21,6 +35,11 @@ public class Player extends Deck {
 		score = 0;
 	}
 	
+	/**
+	 * Builds the hand
+	 * @param mainDeck	The deck to pull cards from
+	 * @param handSize	The hand to add cards to
+	 */
 	public void buildHand(Deck mainDeck, int handSize) {
 		for (int i = 0; i < handSize; i++)
 			hand.addCard(mainDeck.drawCard());
