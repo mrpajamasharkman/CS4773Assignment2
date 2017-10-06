@@ -29,7 +29,7 @@ public class Turn {
 			winningCard = null;
 			winningPlayer = null;			
 			upCards = new ArrayList<Card>();
-			checkForWar = true;
+			checkForWar = false;
 			for (Player player : players) {
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
@@ -42,8 +42,8 @@ public class Turn {
 					winningCard = upCard;
 					winningPlayer = player;
 					checkForWar = false;
-				} else if (upCard.getRank().getValue() < winningCard.getRank().getValue())
-					checkForWar = false;
+				} else if (upCard.getRank().getValue() == winningCard.getRank().getValue())
+					checkForWar = true;
 			}
 			
 			if (checkForWar && pointSystem.checkForSufficientCards(2)) {
