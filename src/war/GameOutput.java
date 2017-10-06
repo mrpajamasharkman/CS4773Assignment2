@@ -10,8 +10,7 @@ public class GameOutput {
 	public void startGame() {
 		Scanner playerInput = new Scanner(System.in);
 		int variation;
-		System.out.println("                                WAR");
-		System.out.println("==================================================================");
+		System.out.println("\n                                WAR\n");
 		System.out.println("Possible variations:");
 		System.out.println("1. 2-Player: Placing won cards on the bottom of the player's hand.");
 		System.out.println("2. 2-Player: Placing won cards in a seperate points pile.");

@@ -1,27 +1,33 @@
 package war;
 
-public class Winner extends Player {
+/**
+ * An extension of the Player class, which has another parameter (winningCard),
+ * and four new methods (
+ * 
+ * @author Lucas Tiedeman
+ * @author Sean Woerner
+ */
 
+public class Winner {
+
+	private Player winningPlayer;
 	private Card winningCard;
 
-	public Winner() {}
-
-	public Winner(String name, Deck mainDeck, int variation, Card winningCard) {
-		super(name, mainDeck, variation);
-		setWinningCard(winningCard);
+	public Winner() {
+		setWinner(null);
+		setWinningCard(null);
 	}
+	
+	public Player getWinner() { return winningPlayer; }
 	
 	public Card getWinningCard() { return winningCard; }
 	
 	public void setWinningCard(Card winningCard) { this.winningCard = winningCard; }
 	
-	public void setWinner(String name, Deck mainDeck) {
-		setName(name);
-		setHand(mainDeck);
-	}
+	public void setWinner(Player player) { winningPlayer = player; }
 	
 	public void reset() { 
-		setWinner(null, null);
+		setWinner(null);
 		setWinningCard(null);
 	}
 }

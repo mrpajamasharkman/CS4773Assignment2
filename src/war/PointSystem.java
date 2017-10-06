@@ -38,12 +38,14 @@ public class PointSystem {
 	
 	public void setCurrentWinner() {
 		int highestScore = -1;
+		
 		for (Player player : players)
 			highestScore = getHighestScore(player, highestScore);
 		for (Player player : players) {
 			if (player.getScore() == highestScore && player != getWinner())
 				setTieFound(true);
 		}
+		
 		if (!getTieFound())
 			setWinnerFound(true);
 	}
@@ -62,6 +64,7 @@ public class PointSystem {
 			if (player.getHand().getDeckSize() < sufficientCards)
 				return false;
 		}
+		
 		return true;
 	}
 	
