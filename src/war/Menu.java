@@ -24,38 +24,38 @@ import java.util.ArrayList;
 public class Menu {
 
 	private static int variation;
+	private static int handSize;
 	private static Deck deck = new Deck(52);
-	private static boolean debug = false;
 	private static Turn turn;
 	private static GameOutput gameOutput = new GameOutput();
 	
 	public static void main(String[] args) {
 		ArrayList<Player> players = new ArrayList<Player>();
-		String winner = "";
 		
 		gameOutput.startGame();
 		
-		players.add(new Player("Player1", deck, getVariation()));
-		players.add(new Player("Player2", deck, getVariation()));
-		if (getVariation() == 3)
-			players.add(new Player("Player3", deck, getVariation()));
+		setHandSize(getVariation());
 		
-		turn = new Turn(players);
-		winner = turn.runTurn();
-		gameOutput.printEvent(winner);
+		players.add(new Player("Player1", deck, getHandSize()));
+		players.add(new Player("Player2", deck, getHandSize()));
+		if (getVariation() == 3)
+			players.add(new Player("Player3", deck, getHandSize()));
+		
+		turn = new Turn(players, gameOutput);
+		gameOutput.appendEvent(turn.runTurn());
+		gameOutput.printStringBuffer();
 	}
+	
+	private static int getHandSize() { return handSize; }
+	
+	private static void setHandSize(int variation) {
+		if (variation == 3)
+			handSize = 17;
+		else
+			handSize = 26;
+	} 
 
 	public static int getVariation() { return variation; }
 	
 	public static void setVariation(int gameType) { variation = gameType; }
-	
-	/**
-	 * Enables a debug mode
-	 */
-	public static void enableDebug() { debug = true; }
-	
-	/**
-	 * @return	True if debug is enabled, false if debug is disabled
-	 */
-	public static boolean getDebug() { return debug; }
 }

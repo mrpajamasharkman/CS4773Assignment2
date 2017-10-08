@@ -1,0 +1,16 @@
+player1 plays ACE of CLUBS as up card
+player2 plays ACE of HEARTS as up card
+player3 plays ACE of SPADES as up card
+War!
+player1 plays QUEEN of CLUBS as up card
+player2 plays QUEEN of HEARTS as up card
+player3 plays QUEEN of SPADES as up card
+War!
+player1 plays NINE of CLUBS as up card
+player2 plays NINE of HEARTS as up card
+player3 plays TEN of SPADES as up card
+player3 wins the round!
+*************
+Score is player1 = 0 player2 = 0 player3 = 15 
+
+>  player3 wins!

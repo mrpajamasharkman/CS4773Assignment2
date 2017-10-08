@@ -1,0 +1,14 @@
+player1 plays TWO of CLUBS as up card
+player2 plays TWO of HEARTS as up card
+player3 plays THREE of SPADES as up card
+player3 wins the round!
+*************
+Score is player1 = 0 player2 = 0 player3 = 3 
+
+player1 plays ACE of CLUBS as up card
+player2 plays ACE of HEARTS as up card
+player3 plays ACE of SPADES as up card
+Cards discarded due to war with insufficient cards.
+Score is player1 = 0 player2 = 0 player3 = 3 
+
+>  player3 wins!

@@ -1,0 +1,7 @@
+player1 plays TWO of CLUBS as up card
+player2 plays ACE of SPADES as up card
+player2 wins the round!
+*************
+Score is player1 = 0 player2 = 2 
+
+>  player2 wins!

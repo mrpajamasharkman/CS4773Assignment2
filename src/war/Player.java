@@ -12,7 +12,6 @@ package war;
 public class Player extends Deck {
 	
 	private String name;
-	private int handSize;
 	private Deck hand;
 	private int score;
 	
@@ -23,13 +22,9 @@ public class Player extends Deck {
 	 * @param mainDeck	The player's deck
 	 * @param variation	The variation of War being played
 	 */
-	public Player(String name, Deck mainDeck, int variation) {
+	public Player(String name, Deck mainDeck, int handSize) {
 		super(0);
 		this.name = name;
-		if (variation == 3)
-			handSize = 17;
-		else
-			handSize = 26;
 		hand = new Deck(handSize);
 		buildHand(mainDeck, handSize);
 		score = 0;

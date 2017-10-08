@@ -1,0 +1,34 @@
+player1 plays ACE of CLUBS as up card
+player2 plays ACE of HEARTS as up card
+player3 plays ACE of SPADES as up card
+War!
+player1 plays QUEEN of CLUBS as up card
+player2 plays JACK of HEARTS as up card
+player3 plays JACK of SPADES as up card
+player1 wins the round!
+*************
+Score is player1 = 9 player2 = 0 player3 = 0 
+
+player1 plays TEN of CLUBS as up card
+player2 plays TEN of HEARTS as up card
+player3 plays TEN of SPADES as up card
+War!
+player1 plays JACK of CLUBS as up card
+player2 plays QUEEN of HEARTS as up card
+player3 plays SIX of SPADES as up card
+player2 wins the round!
+*************
+Score is player1 = 9 player2 = 9 player3 = 0 
+
+player1 plays EIGHT of CLUBS as up card
+player2 plays EIGHT of HEARTS as up card
+player3 plays EIGHT of SPADES as up card
+War!
+player1 plays SIX of CLUBS as up card
+player2 plays SIX of HEARTS as up card
+player3 plays QUEEN of SPADES as up card
+player3 wins the round!
+*************
+Score is player1 = 9 player2 = 9 player3 = 9 
+
+Tie!

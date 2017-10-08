@@ -6,33 +6,35 @@ public class Turn {
 	
 	private PointSystem pointSystem;
 	private ArrayList<Player> players;
-	private GameOutput gameOutput = new GameOutput();
+	private GameOutput gameOutput;
 	private Winner winningPlayer;
+	private boolean checkForWar;
 	private int turnNumber;
-	private static final int MAX_TURN_NUMBER = 4000;
+	private int maxTurnNumber;
 	
-	public Turn(ArrayList<Player> players) {
+	public Turn(ArrayList<Player> players, GameOutput gameOutput) {
 		turnNumber = 1;
 		this.players = players;
 		pointSystem = new PointSystem(players);
 		winningPlayer = new Winner();
+		this.gameOutput = gameOutput;
+		setMaxTurnNumber(4000);
+		setCheckForWar(false);
 	}
 	
 	public String runTurn(){
-		boolean checkForWar;
 		ArrayList<Card> upCards;
 		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound()
-				&& turnNumber < MAX_TURN_NUMBER && pointSystem.checkForSufficientCards(1)) {
+				&& turnNumber < getMaxTurnNumber() && pointSystem.checkForSufficientCards(1)) {
 			winningPlayer = new Winner();			
 			upCards = new ArrayList<Card>();
-			checkForWar = false;
+			setCheckForWar(false);
 			for (Player player : players) {
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
-				checkForWar = determineCheckForWar(player, upCard);
+				determineCheckForWar(player, upCard);
 			}
-			
-			determineRoundWinner(checkForWar, upCards);
+			determineRoundWinner(upCards);
 			
 			pointSystem.checkForWinner();
 			turnNumber++;
@@ -41,34 +43,45 @@ public class Turn {
 		return determineGameWinner();
 	}
 	
-	private void determineRoundWinner(boolean checkForWar, ArrayList<Card> upCards) {
-		if (checkForWar && pointSystem.checkForSufficientCards(1)) {
+	public void determineCheckForWar(Player player, Card upCard) {
+		gameOutput.appendEvent(
+				player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
+		if (winningPlayer.getWinningCard() == null) {
+			winningPlayer.setWinningCard(upCard);
+			winningPlayer.setWinner(player);
+		} else if (upCard.getRank().getValue() > winningPlayer.getWinningCard().getRank().getValue()) {
+			winningPlayer.setWinningCard(upCard);
+			winningPlayer.setWinner(player);
+			setCheckForWar(false);
+		} else if (upCard.getRank().getValue() == winningPlayer.getWinningCard().getRank().getValue())
+			setCheckForWar(true);
+	}
+
+	public void determineRoundWinner(ArrayList<Card> upCards) {
+		if (getCheckForWar() && pointSystem.checkForSufficientCards(1)) {
 			initiateWar(players, upCards);
-			gameOutput.displayScores(players);
-			checkForWar = false;
-		} else if (checkForWar && !pointSystem.checkForSufficientCards(1)) {
-			gameOutput.printEvent("Cards discarded due to war with insufficient cards.");
-		} else if (Menu.getVariation() == 1) {
+			setCheckForWar(false);
+		} else if (getCheckForWar() && !pointSystem.checkForSufficientCards(1))
+			gameOutput.appendEvent("Cards discarded due to war with insufficient cards.");
+		else if (Menu.getVariation() == 1) {
 			for (Card card : upCards)
 				winningPlayer.getWinner().getHand().addCard(card);
 			for (Player player : players)
 				player.setScore(player.getHand().getDeckSize());
-			gameOutput.printEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
-			gameOutput.displayScores(players);
+			gameOutput.appendEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
 		} else {
 			pointSystem.adjustScore(winningPlayer.getWinner(), upCards.size());
-			gameOutput.printEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
-			gameOutput.displayScores(players);
+			gameOutput.appendEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
 		}
+		gameOutput.displayScores(players);
 	}
-	
-	private void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
-		boolean checkForWar = true;
+
+	public void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
 		ArrayList<Card> downCards = new ArrayList<Card>();
-		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() && checkForWar && pointSystem.checkForSufficientCards(1)) {
+		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() && getCheckForWar() && pointSystem.checkForSufficientCards(1)) {
 			winningPlayer = new Winner();
-			checkForWar = false;
-			gameOutput.printEvent("War!");
+			setCheckForWar(false);
+			gameOutput.appendEvent("War!");
 			for (Player player : players) {
 				// If player only has one card remaining, allow him to skip down card in order to continue
 				if (player.getHand().getDeckSize() > 1) {
@@ -77,45 +90,32 @@ public class Turn {
 				}
 				Card upCard = player.getHand().drawCard();
 				upCards.add(upCard);
-				checkForWar = determineCheckForWar(player, upCard);
+				determineCheckForWar(player, upCard);
 			}
 		}
 		determineWarWinner(upCards, downCards);
 	}
-	
-	private boolean determineCheckForWar(Player player, Card upCard) {
-		gameOutput.printEvent(
-				player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
-		if (winningPlayer.getWinningCard() == null) {
-			winningPlayer.setWinningCard(upCard);
-			winningPlayer.setWinner(player);
-		} else if (upCard.getRank().getValue() > winningPlayer.getWinningCard().getRank().getValue()) {
-			winningPlayer.setWinningCard(upCard);
-			winningPlayer.setWinner(player);
-			return false;
-		} else if (upCard.getRank().getValue() == winningPlayer.getWinningCard().getRank().getValue())
-			return true;
-		return false;
-	}
-	
-	private void determineWarWinner(ArrayList<Card> upCards, ArrayList<Card> downCards) {
-		if (Menu.getVariation() == 1) {
+
+	public void determineWarWinner(ArrayList<Card> upCards, ArrayList<Card> downCards) {
+		if (getCheckForWar() && !pointSystem.checkForSufficientCards(1))
+			gameOutput.appendEvent("Cards discarded due to war with insufficient cards.");
+		else if (Menu.getVariation() == 1) {
 			for (Card card : upCards)
 				winningPlayer.getWinner().getHand().addCard(card);
 			for (Card card : downCards)
 				winningPlayer.getWinner().getHand().addCard(card);
-			gameOutput.printEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
+			gameOutput.appendEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
 		} else {
 			pointSystem.adjustScore(winningPlayer.getWinner(), upCards.size());
 			pointSystem.adjustScore(winningPlayer.getWinner(), downCards.size());
-			gameOutput.printEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
+			gameOutput.appendEvent(winningPlayer.getWinner().getName() + " wins the round!\n*************");
 		}
 	}
-	
-	private String determineGameWinner() {
+
+	public String determineGameWinner() {
 		String winner = "";
-		if (turnNumber >= MAX_TURN_NUMBER) {
-			gameOutput.printEvent("Maximum turns reached:");
+		if (turnNumber >= getMaxTurnNumber()) {
+			gameOutput.appendEvent("Maximum turns reached:");
 			pointSystem.setCurrentWinner();
 		}
 		if (pointSystem.getTieFound())
@@ -124,4 +124,12 @@ public class Turn {
 			winner = ">  "+ pointSystem.getWinner().getName() + " wins!";
 		return winner;
 	}
+	
+	public int getMaxTurnNumber() { return maxTurnNumber; }
+	
+	public void setMaxTurnNumber(int maxTurnNumber) { this.maxTurnNumber = maxTurnNumber; }
+	
+	public boolean getCheckForWar() { return checkForWar; }
+	
+	public void setCheckForWar(boolean checkForWar) { this.checkForWar = checkForWar; }
 }

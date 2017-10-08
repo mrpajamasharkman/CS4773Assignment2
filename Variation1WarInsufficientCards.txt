@@ -1,0 +1,6 @@
+player1 plays ACE of CLUBS as up card
+player2 plays ACE of SPADES as up card
+Cards discarded due to war with insufficient cards.
+Score is player1 = 1 player2 = 0 
+
+>  player1 wins!

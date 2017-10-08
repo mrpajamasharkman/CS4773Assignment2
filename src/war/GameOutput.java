@@ -13,7 +13,11 @@ import java.util.Scanner;
 
 public class GameOutput {
 	
-	public GameOutput () {}
+	private StringBuffer stringBuffer;
+	
+	public GameOutput () {
+		 stringBuffer = new StringBuffer();
+	}
 	
 	/**
 	 * Prints the opening menu of the game and accepts player input for the variation to be played
@@ -45,15 +49,15 @@ public class GameOutput {
 	 * @param players	The ArrayList of players to be displayed
 	 */
 	public void displayScores(ArrayList<Player> players) {
-		System.out.print("Score is ");
+		setStringBuffer(getStringBuffer().append(String.format("Score is ")));
 		if (Menu.getVariation() == 1) {
 			for (Player player : players)
-				System.out.print(player.getName() + " = " + player.getHand().getDeckSize() + " ");
+				getStringBuffer().append(String.format(player.getName() + " = " + player.getHand().getDeckSize() + " "));
 		} else {
 			for (Player player : players)
-				System.out.print(player.getName() + " = " + player.getScore() + " ");
+				getStringBuffer().append(String.format(player.getName() + " = " + player.getScore() + " "));
 		}
-		System.out.println("\n");
+		getStringBuffer().append(String.format("\n\n"));
 	}
 	
 	/**
@@ -61,5 +65,11 @@ public class GameOutput {
 	 * 
 	 * @param event	The String to be printed
 	 */
-	public void printEvent(String event) { System.out.println(event); }
+	public void appendEvent(String event) { getStringBuffer().append(String.format(event + "\n")); }
+	
+	public void printStringBuffer() { System.out.print(getStringBuffer().toString()); }
+	
+	public StringBuffer getStringBuffer() { return stringBuffer; }
+	
+	public void setStringBuffer(StringBuffer stringBuffer) { this.stringBuffer = stringBuffer; }
 }

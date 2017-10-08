@@ -33,7 +33,7 @@ public class PointSystem {
 	/**
 	 * Finds a winner in variation 1 of War
 	 */
-	private void setFullHandWinner() {
+	public void setFullHandWinner() {
 		for (Player player : players)
 			checkHandSize(player);
 	}
@@ -42,7 +42,7 @@ public class PointSystem {
 	 * Checks for a deckSize that is not zero to find the winner in variation 1
 	 * @param player	Current player being checked
 	 */
-	private void checkHandSize(Player player) {
+	public void checkHandSize(Player player) {
 		if (player.getHand().getDeckSize() != 0) {
 			setWinner(player);
 			setWinnerFound(true);
@@ -71,7 +71,7 @@ public class PointSystem {
 	 * @param highestScore	The current highest score found
 	 * @return				The highest score found among all the players
 	 */
-	private int getHighestScore(Player player, int highestScore) {
+	public int getHighestScore(Player player, int highestScore) {
 		if (player.getScore() > highestScore) {
 			highestScore = player.getScore();
 			setWinner(player);
@@ -95,15 +95,15 @@ public class PointSystem {
 	
 	public Player getWinner() { return winner; }
 	
-	private void setWinner(Player winner) { this.winner = winner; }
+	public void setWinner(Player winner) { this.winner = winner; }
 	
 	public boolean getWinnerFound() { return winnerFound; }
 	
-	private void setWinnerFound(boolean winnerFound) { this.winnerFound = winnerFound; }
+	public void setWinnerFound(boolean winnerFound) { this.winnerFound = winnerFound; }
 	
 	public boolean getTieFound() { return tieFound; }
 	
-	private void setTieFound(boolean tieFound) { this.tieFound = tieFound; }
+	public void setTieFound(boolean tieFound) { this.tieFound = tieFound; }
 	
 	/**
 	 * Adds points to the player's current score

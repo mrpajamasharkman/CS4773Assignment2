@@ -1,0 +1,8 @@
+player1 plays FIVE of CLUBS as up card
+player2 plays ACE of HEARTS as up card
+player3 plays FIVE of SPADES as up card
+player2 wins the round!
+*************
+Score is player1 = 0 player2 = 3 player3 = 0 
+
+>  player2 wins!

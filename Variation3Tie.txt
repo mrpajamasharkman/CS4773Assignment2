@@ -1,0 +1,22 @@
+player1 plays ACE of CLUBS as up card
+player2 plays KING of HEARTS as up card
+player3 plays QUEEN of SPADES as up card
+player1 wins the round!
+*************
+Score is player1 = 3 player2 = 0 player3 = 0 
+
+player1 plays QUEEN of CLUBS as up card
+player2 plays ACE of HEARTS as up card
+player3 plays KING of SPADES as up card
+player2 wins the round!
+*************
+Score is player1 = 3 player2 = 3 player3 = 0 
+
+player1 plays KING of CLUBS as up card
+player2 plays QUEEN of HEARTS as up card
+player3 plays ACE of SPADES as up card
+player3 wins the round!
+*************
+Score is player1 = 3 player2 = 3 player3 = 3 
+
+Tie!

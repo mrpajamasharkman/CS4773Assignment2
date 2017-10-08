@@ -17,7 +17,9 @@ public class Deck {
 	private static final int MAX_DECK_SIZE = 52;
 	protected ArrayList<Card> cards;
 	
-	public Deck() {}
+	public Deck() {
+		cards = new ArrayList<Card>();
+	}
 	
 	/**
 	 * @param deckSize	The desired size of the deck. If deckSize == 52, creates a standard deck,
@@ -61,12 +63,4 @@ public class Deck {
 	public Card drawCard() { return cards.remove(0); }
 	
 	public int getDeckSize() { return cards.size(); }
-	
-	/**
-	 * Outputs all of the cards of the deck in order of index
-	 */
-	public void displayDeck() {
-		for (Card c : cards)
-			System.out.println(c.getRank() + "\tof\t" + c.getSuit());
-	}
 }
