@@ -12,6 +12,10 @@ public class Winner{
 	private Player winningPlayer;
 	private Card winningCard;
 
+	/**
+	 * A Winner object always starts with null values so that the first player being examined is the default winner
+	 * and a comparison can be made to the other player(s)
+	 */
 	public Winner() {
 		setWinner(null);
 		setWinningCard(null);

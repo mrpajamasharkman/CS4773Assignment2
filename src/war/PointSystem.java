@@ -81,9 +81,10 @@ public class PointSystem {
 	}
 	
 	/**
+	 * Checks to see if there are enough cards for a war to happen
 	 * 
-	 * @param sufficientCards
-	 * @return
+	 * @param sufficientCards	The minimum number of cards that would allow a player to go to war
+	 * @return	true if there are enough cards in a player's hand for war, false if not
 	 */
 	public boolean checkForSufficientCards(int sufficientCards) {
 		for (Player player : players) {

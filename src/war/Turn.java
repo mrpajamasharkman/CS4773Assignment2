@@ -2,8 +2,13 @@ package war;
 
 import java.util.ArrayList;
 
+/**
+ * @author Lucas Tiedeman
+ * @author Sean Woerner
+ * @author Christian Andrada
+ */
+
 public class Turn {
-	
 	private PointSystem pointSystem;
 	private ArrayList<Player> players;
 	private GameOutput gameOutput;
@@ -21,6 +26,12 @@ public class Turn {
 		setMaxTurnNumber(4000);
 		setCheckForWar(false);
 	}
+	
+	/**
+	 * The principal method of Turn which starts the game and runs it through to its end
+	 * 
+	 * @return	The overall winner of the game
+	 */
 	
 	public String runTurn(){
 		ArrayList<Card> upCards;
@@ -43,7 +54,7 @@ public class Turn {
 		return determineGameWinner();
 	}
 	
-	public void determineCheckForWar(Player player, Card upCard) {
+	private void determineCheckForWar(Player player, Card upCard) {
 		gameOutput.appendEvent(
 				player.getName() + " plays " + upCard.getRank() + " of " + upCard.getSuit() + " as up card");
 		if (winningPlayer.getWinningCard() == null) {
@@ -57,7 +68,7 @@ public class Turn {
 			setCheckForWar(true);
 	}
 
-	public void determineRoundWinner(ArrayList<Card> upCards) {
+	private void determineRoundWinner(ArrayList<Card> upCards) {
 		if (getCheckForWar() && pointSystem.checkForSufficientCards(1)) {
 			initiateWar(players, upCards);
 			setCheckForWar(false);
@@ -76,7 +87,7 @@ public class Turn {
 		gameOutput.displayScores(players);
 	}
 
-	public void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
+	private void initiateWar(ArrayList<Player> players, ArrayList<Card> upCards) {
 		ArrayList<Card> downCards = new ArrayList<Card>();
 		while (!pointSystem.getWinnerFound() && !pointSystem.getTieFound() && getCheckForWar() && pointSystem.checkForSufficientCards(1)) {
 			winningPlayer = new Winner();
@@ -96,7 +107,7 @@ public class Turn {
 		determineWarWinner(upCards, downCards);
 	}
 
-	public void determineWarWinner(ArrayList<Card> upCards, ArrayList<Card> downCards) {
+	private void determineWarWinner(ArrayList<Card> upCards, ArrayList<Card> downCards) {
 		if (getCheckForWar() && !pointSystem.checkForSufficientCards(1))
 			gameOutput.appendEvent("Cards discarded due to war with insufficient cards.");
 		else if (Menu.getVariation() == 1) {
@@ -112,7 +123,7 @@ public class Turn {
 		}
 	}
 
-	public String determineGameWinner() {
+	private String determineGameWinner() {
 		String winner = "";
 		if (turnNumber >= getMaxTurnNumber()) {
 			gameOutput.appendEvent("Maximum turns reached:");
@@ -125,11 +136,11 @@ public class Turn {
 		return winner;
 	}
 	
-	public int getMaxTurnNumber() { return maxTurnNumber; }
+	private int getMaxTurnNumber() { return maxTurnNumber; }
 	
 	public void setMaxTurnNumber(int maxTurnNumber) { this.maxTurnNumber = maxTurnNumber; }
 	
-	public boolean getCheckForWar() { return checkForWar; }
+	private boolean getCheckForWar() { return checkForWar; }
 	
-	public void setCheckForWar(boolean checkForWar) { this.checkForWar = checkForWar; }
+	private void setCheckForWar(boolean checkForWar) { this.checkForWar = checkForWar; }
 }

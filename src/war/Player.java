@@ -19,8 +19,8 @@ public class Player extends Deck {
 
 	/**
 	 * @param name		The player's name
-	 * @param mainDeck	The player's deck
-	 * @param variation	The variation of War being played
+	 * @param mainDeck	The game's main deck to pull cards from
+	 * @param handSize	The number of cards in the player's hand
 	 */
 	public Player(String name, Deck mainDeck, int handSize) {
 		super(0);
@@ -32,6 +32,7 @@ public class Player extends Deck {
 	
 	/**
 	 * Builds the hand
+	 * 
 	 * @param mainDeck	The deck to pull cards from
 	 * @param handSize	The hand to add cards to
 	 */
