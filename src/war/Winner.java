@@ -7,7 +7,7 @@ package war;
  * @author Sean Woerner
  * @author Christian Andrada
  */
-public class Winner{
+public class Winner {
 
 	private Player winningPlayer;
 	private Card winningCard;
