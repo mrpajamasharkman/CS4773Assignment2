@@ -15,6 +15,9 @@ public class GameOutput {
 	
 	private StringBuffer stringBuffer;
 	
+	/**
+	 * Handles all of the output of a game of War
+	 */
 	public GameOutput () {
 		 stringBuffer = new StringBuffer();
 	}
@@ -61,12 +64,15 @@ public class GameOutput {
 	}
 	
 	/**
-	 * Honestly kind of a cop out way to ensure that printing only happens here
+	 * Adds events to the stringBuffer to be printed later
 	 * 
 	 * @param event	The String to be printed
 	 */
 	public void appendEvent(String event) { getStringBuffer().append(String.format(event + "\n")); }
 	
+	/**
+	 * Prints the contents of stringBuffer
+	 */
 	public void printStringBuffer() { System.out.print(getStringBuffer().toString()); }
 	
 	public StringBuffer getStringBuffer() { return stringBuffer; }
